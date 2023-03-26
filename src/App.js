@@ -1,125 +1,72 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import AddIcon from '@mui/icons-material/Add';
-import HomeIcon from '@mui/icons-material/Home';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { AppBar, Stack, Avatar, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography, Paper } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import * as React from 'react';
-import './App.css';
-import { Box, Container } from '@mui/system';
-import styled from '@emotion/styled';
+import styled from "styled-components";
 
-const DRAWER_WIDTH = 320;
-
-const TASK_LISTS = ['Groceries', 'Bills', 'Work'];
-
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
 
 function App() {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <Container maxWidth="m">
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: DRAWER_WIDTH,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: { width: DRAWER_WIDTH, boxSizing: 'border-box' },
-          }}
-        > 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Avatar sx={{ margin: 2, width: 48, height: 48,  bgcolor: "orange" }}>LW</Avatar>
-            <Box>
-            <Typography>Lukasz Wieckowski</Typography>
-            <Typography variant="caption">luukka.wieckowski@gmail.com</Typography>
-            </Box>
-          </Box>
-          <Box sx={{ overflow: 'auto' }}>
-          <List>
-          <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary={"All"} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <StarBorderIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Important"} />
-              </ListItemButton>
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-          <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <AddIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Add a task list"} />
-              </ListItemButton>
-            </ListItem>
-            {TASK_LISTS.map((name) => (
-              <TaskListButton name={name}/>
-            ))}
-          </List>
-        </Box>
-        </Drawer>
-        <Box sx={{ width: "100%"}}>
-          <Typography margin={2} variant="h5">Tasks</Typography>
-          <Stack spacing={2} margin={2}>
-          <ListItem disablePadding>
-            <ListItemButton>
-                <ListItemIcon>
-                  <AddIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Add a task"} />
-              </ListItemButton>
-            </ListItem>
-            <Item>Task 1</Item>
-            <Item>Task 2</Item>
-            <Item>Task 3</Item>
-          </Stack>
-        </Box>
-      </Box>
-      </Container>
-    </ThemeProvider>
+    <Container>
+      <Sidebar>
+        <Button color="#BB86FC">All</Button>
+        <Button color="#BB86FC">Important</Button>
+        <Button color="#BB86FC">+ Add a task list</Button>
+      </Sidebar>
+      <Canvas>
+        <Task color="#BB86FC">Pay bills</Task>
+      </Canvas>
+    </Container>
   );
 }
 
 export default App;
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  color: theme.palette.text.secondary,
-}));
+const Container = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  background-color: #121212;
+  width: 100%;
+  height: 100%;
+`;
 
-function TaskListButton({ name }) {
-  return (
-    <ListItem key={name} disablePadding>
-      <ListItemButton>
-        <ListItemIcon>
-          <FormatListBulletedIcon />
-        </ListItemIcon>
-        <ListItemText primary={name} />
-      </ListItemButton>
-    </ListItem>
-  )
-}
+const Sidebar = styled.div`
+  box-sizing: border-box;
+  height: 100%;
+  width: 500px;
+`;
+
+const Button = styled.button`
+  all: unset;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: ${props => props.color || "white"};
+  width: 100%;
+  height: 48px;
+  margin: 5px;
+  padding-left: 10px;
+  &:hover {
+    background-color: #212121;
+  }
+`;
+
+const Task = styled.div`
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: #212121;
+  border-radius: 5px;
+  width: 100%;
+  height: 74px;
+  margin: 5px;
+  padding: 10px;
+  color: ${props => props.color || "white"};
+`;
+
+const Canvas = styled.div`
+  box-sizing: border-box;
+  background-color: #191919;
+  width: 100%;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 20px;
+  color: ${props => props.color || "#FFFFFF"};
+`;
 
