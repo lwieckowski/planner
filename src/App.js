@@ -72,7 +72,7 @@ function App() {
             <List>
               <MenuItem text="Add a task list" icon={<AddIcon />}></MenuItem>
               {TASK_LISTS.map((text) => (
-                <MenuItem text={text} icon={<FormatListBulletedIcon/>}/>
+                <MenuItem text={text} icon={<FormatListBulletedIcon/>} canDelete={true}/>
               ))}
             </List>
           </Box>
@@ -94,10 +94,10 @@ function App() {
                 placeholder="Add a task"
               />
             </Paper>
-            <MenuItem text="Task 1" icon={<Checkbox color="success" />}></MenuItem>
-            <MenuItem text="Task 2" icon={<Checkbox />}></MenuItem>
-            <MenuItem text="Task 3" icon={<Checkbox />}></MenuItem>
-            <MenuItem text="Task 4" icon={<Checkbox />}></MenuItem>
+            <MenuItem text="Task 1" icon={<Checkbox color="success" />} canDelete={true}/>
+            <MenuItem text="Task 2" icon={<Checkbox />} canDelete={true}/>
+            <MenuItem text="Task 3" icon={<Checkbox />} canDelete={true}/>
+            <MenuItem text="Task 4" icon={<Checkbox />} canDelete={true}/>
           </Stack>
         </Box>
       </Box>

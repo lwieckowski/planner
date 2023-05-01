@@ -2,7 +2,7 @@ import { ListItem, ListItemButton, ListItemIcon, ListItemText, IconButton } from
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function MenuItem({ text, icon}) {
+export default function MenuItem({ text, icon, canDelete = false}) {
   return (
     <ListItem disablePadding sx={
       {
@@ -19,11 +19,14 @@ export default function MenuItem({ text, icon}) {
           {icon}
         </ListItemIcon>
         <ListItemText primary={text} />
-        <ListItemIcon className="delete-button">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </ListItemIcon>
+        {canDelete && 
+          <ListItemIcon className="delete-button">
+            <IconButton aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </ListItemIcon>
+        }
+
       </ListItemButton>
     </ListItem>
   );
