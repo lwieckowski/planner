@@ -364,25 +364,32 @@ function deleteCategory(index) {
                   onChange={handleNewTaskChange}
                 />
               </Paper>
-              {state.tasks.map((task) => (
-                <Item
-                text={task.name}
-                icon={
-                  <Checkbox
-                    checked={task.completed}
-                    onClick={() => dispatch(toggleCompleted(task.id))}
-                  />}
-                buttons={
-                  [
-                    <ImportantButton
-                      important={task.important}
-                      onClick={() => dispatch(toggleImportant(task.id))}
-                    />,
-                    <DeleteButton
-                      onClick={() => dispatch(deleteTask(task.id))}
-                    />
-                  ]
-                }/>
+              {state.tasks.filter(
+                (task) => {
+                  if (state.category == 0) return true;
+                  if (state.category == 1) return task.important;
+                  return task.category == state.categories[state.category]
+                }
+              ).map(
+                (task) => (
+                  <Item
+                  text={task.name}
+                  icon={
+                    <Checkbox
+                      checked={task.completed}
+                      onClick={() => dispatch(toggleCompleted(task.id))}
+                    />}
+                  buttons={
+                    [
+                      <ImportantButton
+                        important={task.important}
+                        onClick={() => dispatch(toggleImportant(task.id))}
+                      />,
+                      <DeleteButton
+                        onClick={() => dispatch(deleteTask(task.id))}
+                      />
+                    ]
+                  }/>
               ))}
             </Stack>
           </Box>
