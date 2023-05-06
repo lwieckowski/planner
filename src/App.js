@@ -14,8 +14,7 @@ import {
   Checkbox,
   IconButton,
   InputBase,
-  Toolbar,
-  TextField
+  TextField,
 } from "@mui/material";
 import "./App.css";
 import { Box } from "@mui/system";
@@ -29,14 +28,12 @@ import SetCategoryButton from "./components/SetCategoryButton";
 
 const DRAWER_WIDTH = 320;
 
-
-
 const lightTheme = createTheme({
   palette: {
     mode: "light",
     text: {
-      disabled: "primary"
-    }
+      disabled: "primary",
+    },
   },
 });
 
@@ -45,7 +42,7 @@ const initialState = {
   category: 0,
   categoryInEditMode: false,
   newTaskName: "",
-  tasks: []
+  tasks: [],
 };
 
 const Context = createContext(initialState);
@@ -55,164 +52,186 @@ function reducer(state, action) {
     case "CHANGE_NEW_TASK_NAME":
       return {
         ...state,
-        newTaskName: action.payload
-      }
+        newTaskName: action.payload,
+      };
     case "ADD_TASK":
       return {
         ...state,
-        tasks: [...state.tasks, action.payload]
-      }
+        tasks: [...state.tasks, action.payload],
+      };
     case "DELETE_TASK":
       return {
         ...state,
-        tasks: state.tasks.filter(task => task.id !== action.payload)
-      }
+        tasks: state.tasks.filter((task) => task.id !== action.payload),
+      };
     case "TOGGLE_CATEGORY_EDIT_MODE":
       return {
         ...state,
-        categoryInEditMode: !state.categoryInEditMode
-      }
+        categoryInEditMode: !state.categoryInEditMode,
+      };
     case "TOGGLE_IMPORTANT":
       return {
         ...state,
-        tasks: state.tasks.map(task => task.id === action.payload ? { ...task, important: !task.important } : task)
-      }
+        tasks: state.tasks.map((task) =>
+          task.id === action.payload
+            ? { ...task, important: !task.important }
+            : task
+        ),
+      };
     case "TOGGLE_COMPLETED":
       return {
         ...state,
-        tasks: state.tasks.map(task => task.id === action.payload ? { ...task, completed: !task.completed } : task)
-      }
+        tasks: state.tasks.map((task) =>
+          task.id === action.payload
+            ? { ...task, completed: !task.completed }
+            : task
+        ),
+      };
     case "ADD_CATEGORY":
       return {
         ...state,
         categories: [...state.categories, action.payload],
         category: state.categories.length,
-        categoryInEditMode: true
-      }
+        categoryInEditMode: true,
+      };
     case "SET_TASK_CATEGORY":
       return {
         ...state,
-        tasks: state.tasks.map(task => task.id === action.payload.id ? { ...task, category: action.payload.category } : task)
-      }
+        tasks: state.tasks.map((task) =>
+          task.id === action.payload.id
+            ? { ...task, category: action.payload.category }
+            : task
+        ),
+      };
     case "SELECT_CATEGORY":
       return {
         ...state,
-        category: action.payload
-      }
+        category: action.payload,
+      };
     case "CHANGE_CATEGORY_NAME":
       return {
         ...state,
-        categories: state.categories.map((category, index) => index === action.payload.index ? action.payload.name : category)
-      }
+        categories: state.categories.map((category, index) =>
+          index === action.payload.index ? action.payload.name : category
+        ),
+      };
     case "DELETE_CATEGORY":
       return {
         ...state,
-        categories: state.categories.filter((category, index) => index !== action.payload),
-        tasks: state.tasks.filter(task => task.category !== state.categories[action.payload]),
-        category: state.category === action.payload ? 0 : state.category < action.payload ? state.category : state.category - 1
-      }
-        default:
+        categories: state.categories.filter(
+          (category, index) => index !== action.payload
+        ),
+        tasks: state.tasks.filter(
+          (task) => task.category !== state.categories[action.payload]
+        ),
+        category:
+          state.category === action.payload
+            ? 0
+            : state.category < action.payload
+            ? state.category
+            : state.category - 1,
+      };
+    default:
       return state;
   }
 }
 
 function App() {
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
-function handleNewTaskKeyDown(e) {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    dispatch(changeNewTaskName(""));
-    dispatch(addTask(state.newTaskName, state.categories[state.category]));
-  }
-}
-
-function handleNewTaskChange(e) {
-  dispatch(changeNewTaskName(e.target.value));
-}
-
-function changeNewTaskName(name) {
-  return {
-    type: "CHANGE_NEW_TASK_NAME",
-    payload: name
-  }
-}
-
-function addTask(name, category) {
-  return {
-    type: "ADD_TASK",
-    payload: {
-      id: Date.now(),
-      name,
-      important: false,
-      completed: false,
-      category: category
+  function handleNewTaskKeyDown(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      dispatch(changeNewTaskName(""));
+      dispatch(addTask(state.newTaskName, state.categories[state.category]));
     }
   }
-}
 
-function deleteTask(id) {
-  return {
-    type: "DELETE_TASK",
-    payload: id
+  function handleNewTaskChange(e) {
+    dispatch(changeNewTaskName(e.target.value));
   }
-}
 
-function toggleImportant(id) {
-  return {
-    type: "TOGGLE_IMPORTANT",
-    payload: id
+  function changeNewTaskName(name) {
+    return {
+      type: "CHANGE_NEW_TASK_NAME",
+      payload: name,
+    };
   }
-}
 
-function toggleCompleted(id) {
-  return {
-    type: "TOGGLE_COMPLETED",
-    payload: id
+  function addTask(name, category) {
+    return {
+      type: "ADD_TASK",
+      payload: {
+        id: Date.now(),
+        name,
+        important: false,
+        completed: false,
+        category: category,
+      },
+    };
   }
-}
 
-function addCategory() {
-  return {
-    type: "ADD_CATEGORY",
-    payload: "Untitled category"
+  function deleteTask(id) {
+    return {
+      type: "DELETE_TASK",
+      payload: id,
+    };
   }
-}
 
-function selectCategory(category) {
-  return {
-    type: "SELECT_CATEGORY",
-    payload: category
+  function toggleImportant(id) {
+    return {
+      type: "TOGGLE_IMPORTANT",
+      payload: id,
+    };
   }
-}
 
-function changeCategoryName(index, name) {
-  return {
-    type: "CHANGE_CATEGORY_NAME",
-    payload: {index, name}
+  function toggleCompleted(id) {
+    return {
+      type: "TOGGLE_COMPLETED",
+      payload: id,
+    };
   }
-}
 
-function toggleCategoryEditMode() {
-  return {
-    type: "TOGGLE_CATEGORY_EDIT_MODE"
+  function addCategory() {
+    return {
+      type: "ADD_CATEGORY",
+      payload: "Untitled category",
+    };
   }
-}
 
-function deleteCategory(index) {
-  return {
-    type: "DELETE_CATEGORY",
-    payload: index
+  function selectCategory(category) {
+    return {
+      type: "SELECT_CATEGORY",
+      payload: category,
+    };
   }
-}
 
-function setTaskCategory(id, category) {
-  return {
-    type: "SET_TASK_CATEGORY",
-    payload: {id, category}
+  function changeCategoryName(index, name) {
+    return {
+      type: "CHANGE_CATEGORY_NAME",
+      payload: { index, name },
+    };
   }
-}
+
+  function toggleCategoryEditMode() {
+    return {
+      type: "TOGGLE_CATEGORY_EDIT_MODE",
+    };
+  }
+
+  function deleteCategory(index) {
+    return {
+      type: "DELETE_CATEGORY",
+      payload: index,
+    };
+  }
+
+  function setTaskCategory(id, category) {
+    return {
+      type: "SET_TASK_CATEGORY",
+      payload: { id, category },
+    };
+  }
 
   return (
     <Context.Provider value={{ state, dispatch }}>
@@ -264,22 +283,24 @@ function setTaskCategory(id, category) {
                   icon={<AddIcon />}
                   onClick={() => dispatch(addCategory())}
                 ></Item>
-                {state.categories.map((category, index) => (
-                  index >= 2 &&
-                  <Item
-                    text={category}
-                    icon={<FormatListBulletedIcon/>}
-                    buttons={
-                      [
-                        <DeleteButton onClick={(e) => {
-                          e.stopPropagation();
-                          dispatch(deleteCategory(index))
-                        }}/>
-                      ]
-                    }
-                    onClick={() => dispatch(selectCategory(index))}
-                  />
-                ))}
+                {state.categories.map(
+                  (category, index) =>
+                    index >= 2 && (
+                      <Item
+                        text={category}
+                        icon={<FormatListBulletedIcon />}
+                        buttons={[
+                          <DeleteButton
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              dispatch(deleteCategory(index));
+                            }}
+                          />,
+                        ]}
+                        onClick={() => dispatch(selectCategory(index))}
+                      />
+                    )
+                )}
               </List>
             </Box>
           </Drawer>
@@ -288,28 +309,36 @@ function setTaskCategory(id, category) {
               <TextField
                 variant="standard"
                 disabled={state.category < 2}
-                onChange={(e) => dispatch(changeCategoryName(state.category, e.target.value))}
-                value={state.categories[state.category]}
-                InputProps={
-                  {
-                    disableUnderline: true,
-                    style: {
-                      fontSize: 28,
-                    }
-                  }
+                onChange={(e) =>
+                  dispatch(changeCategoryName(state.category, e.target.value))
                 }
-                inputRef={input => state.categoryInEditMode && input && input.focus()}
-                onFocus={e => e.target.select()}
+                value={state.categories[state.category]}
+                InputProps={{
+                  disableUnderline: true,
+                  style: {
+                    fontSize: 28,
+                  },
+                }}
+                inputRef={(input) =>
+                  state.categoryInEditMode && input && input.focus()
+                }
+                onFocus={(e) => e.target.select()}
                 onBlur={() => dispatch(toggleCategoryEditMode())}
               ></TextField>
             </Box>
 
             <Stack spacing={0} margin={2}>
-            <Paper
+              <Paper
                 component="form"
-                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%", marginBottom: "20px" }}
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  marginBottom: "20px",
+                }}
               >
-                <IconButton disableRipple sx={{ p: '10px 20px' }}>
+                <IconButton disableRipple sx={{ p: "10px 20px" }}>
                   <AddIcon fontSize="medium" />
                 </IconButton>
                 <InputBase
@@ -320,26 +349,27 @@ function setTaskCategory(id, category) {
                   onChange={handleNewTaskChange}
                 />
               </Paper>
-              {state.tasks.filter(
-                (task) => {
+              {state.tasks
+                .filter((task) => {
                   if (state.category == 0) return true;
                   if (state.category == 1) return task.important;
-                  return task.category == state.categories[state.category]
-                }
-              ).map(
-                (task) => (
+                  return task.category == state.categories[state.category];
+                })
+                .map((task) => (
                   <Item
-                  text={task.name}
-                  icon={
-                    <Checkbox
-                      checked={task.completed}
-                      onClick={() => dispatch(toggleCompleted(task.id))}
-                    />}
-                  buttons={
-                    [
+                    text={task.name}
+                    icon={
+                      <Checkbox
+                        checked={task.completed}
+                        onClick={() => dispatch(toggleCompleted(task.id))}
+                      />
+                    }
+                    buttons={[
                       <SetCategoryButton
                         categories={state.categories}
-                        setCategory={(category) => dispatch(setTaskCategory(task.id, category))}
+                        setCategory={(category) =>
+                          dispatch(setTaskCategory(task.id, category))
+                        }
                       />,
                       <ImportantButton
                         important={task.important}
@@ -347,10 +377,10 @@ function setTaskCategory(id, category) {
                       />,
                       <DeleteButton
                         onClick={() => dispatch(deleteTask(task.id))}
-                      />
-                    ]
-                  }/>
-              ))}
+                      />,
+                    ]}
+                  />
+                ))}
             </Stack>
           </Box>
         </Box>
