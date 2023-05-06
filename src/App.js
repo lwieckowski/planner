@@ -224,7 +224,7 @@ function toggleCompleted(id) {
 function addCategory() {
   return {
     type: "ADD_CATEGORY",
-    payload: "New category"
+    payload: "Untitled category"
   }
 }
 
