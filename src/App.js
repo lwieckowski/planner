@@ -34,7 +34,7 @@ const lightTheme = createTheme({
   palette: {
     mode: "light",
     text: {
-      disabled: "black"
+      disabled: "primary"
     }
   },
 });
@@ -160,7 +160,7 @@ function reducer(state, action) {
         ...state,
         categories: state.categories.filter((category, index) => index !== action.payload),
         tasks: state.tasks.filter(task => task.category !== action.payload),
-        category: state.category === action.payload ? 0 : state.category
+        category: state.category === action.payload ? 0 : state.category < action.payload ? state.category : state.category - 1
       }
         default:
       return state;
@@ -315,7 +315,10 @@ function deleteCategory(index) {
                     icon={<FormatListBulletedIcon/>}
                     buttons={
                       [
-                        <DeleteButton onClick={() => dispatch(deleteCategory(index))}/>
+                        <DeleteButton onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(deleteCategory(index))
+                        }}/>
                       ]
                     }
                     onClick={() => dispatch(selectCategory(index))}
