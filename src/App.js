@@ -40,68 +40,11 @@ const lightTheme = createTheme({
 });
 
 const initialState = {
-  categories: ["All", "Important", "Groceries", "Bills", "Work", "Personal"],
+  categories: ["All", "Important"],
   category: 0,
   categoryInEditMode: false,
   newTaskName: "",
-  tasks: [
-    {
-      "id": 1,
-      "name": "Buy milk",
-      "important": false,
-      "completed": false,
-      "category": "Groceries"
-    },
-    {
-      "id": 2,
-      "name": "Buy bread",
-      "important": false,
-      "completed": false,
-      "category": "Groceries"
-    },
-    {
-      "id": 3,
-      "name": "Pay electricity bill",
-      "important": false,
-      "completed": false,
-      "category": "Bills"
-    },
-    {
-      "id": 4,
-      "name": "Pay rent",
-      "important": false,
-      "completed": false,
-      "category": "Bills"
-    },
-    {
-      "id": 5,
-      "name": "Finish project",
-      "important": false,
-      "completed": false,
-      "category": "Work"
-    },
-    {
-      "id": 6,
-      "name": "Prepare presentation",
-      "important": false,
-      "completed": false,
-      "category": "Work"
-    },
-    {
-      "id": 7,
-      "name": "Go for a run",
-      "important": false,
-      "completed": false,
-      "category": "Personal"
-    },
-    {
-      "id": 8,
-      "name": "Call mom",
-      "important": false,
-      "completed": false,
-      "category": "Personal"
-    }
-  ]
+  tasks: []
 };
 
 const Context = createContext(initialState);
