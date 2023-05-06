@@ -38,7 +38,9 @@ export default function SetCategoryButton({ categories, setCategory }) {
         }}
       >
         {categories.slice(2).map((category, index) => (
-          <MenuItem key={index} onClick={handleClose}>{category}</MenuItem>
+          <MenuItem key={index} onClick={handleClose}>
+            {category}
+          </MenuItem>
         ))}
       </Menu>
     </ListItemIcon>
