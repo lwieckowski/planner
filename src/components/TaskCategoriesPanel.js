@@ -1,6 +1,7 @@
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import AddIcon from "@mui/icons-material/Add";
 import HomeIcon from "@mui/icons-material/Home";
+import DoneIcon from '@mui/icons-material/Done';
 import { Divider, List } from "@mui/material";
 import { Box } from "@mui/system";
 import Item from "./Item";
@@ -48,6 +49,12 @@ export function TaskCategoriesPanel() {
           icon={<StarBorderIcon />}
           onClick={() => dispatch(selectCategory(1))}
         ></Item>
+        <Item
+          key={2}
+          text="Completed"
+          icon={<DoneIcon />}
+          onClick={() => dispatch(selectCategory(2))}
+        ></Item>
       </List>
       <Divider />
       <List>
@@ -59,7 +66,7 @@ export function TaskCategoriesPanel() {
         ></Item>
         {state.categories.map(
           (category, index) =>
-            index >= 2 && (
+            index >= 3 && (
               <Item
                 key={category + index}
                 text={category}

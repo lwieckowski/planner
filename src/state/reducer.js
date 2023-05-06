@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 export const initialState = {
-  categories: ["All", "Important"],
+  categories: ["All", "Important", "Completed"],
   category: 0,
   categoryInEditMode: false,
   newTaskName: "",

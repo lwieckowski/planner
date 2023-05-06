@@ -23,7 +23,7 @@ export function TaskCategoryTitleField() {
     <Box sx={{ ml: 2, mt: 2 }}>
       <TextField
         variant="standard"
-        disabled={state.category < 2}
+        disabled={state.category < 3}
         onChange={(e) =>
           dispatch(changeCategoryName(state.category, e.target.value))
         }

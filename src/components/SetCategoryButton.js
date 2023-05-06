@@ -37,7 +37,7 @@ export default function SetCategoryButton({ categories, setCategory }) {
           "aria-labelledby": "basic-button",
         }}
       >
-        {categories.slice(2).map((category, index) => (
+        {categories.slice(3).map((category, index) => (
           <MenuItem key={index} onClick={handleClose}>
             {category}
           </MenuItem>

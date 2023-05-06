@@ -41,6 +41,7 @@ export function TaskList() {
     .filter((task) => {
       if (state.category === 0) return true;
       if (state.category === 1) return task.important;
+      if (state.category === 2) return task.completed;
       return task.category === state.categories[state.category];
     })
     .map((task) => (
