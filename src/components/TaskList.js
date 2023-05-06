@@ -39,9 +39,9 @@ export function TaskList() {
 
   return state.tasks
     .filter((task) => {
-      if (state.category == 0) return true;
-      if (state.category == 1) return task.important;
-      return task.category == state.categories[state.category];
+      if (state.category === 0) return true;
+      if (state.category === 1) return task.important;
+      return task.category === state.categories[state.category];
     })
     .map((task) => (
       <Item
