@@ -25,6 +25,7 @@ import DeleteButton from "./components/DeleteButton";
 import ImportantButton from "./components/ImportantButton";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { createContext, useReducer } from "react";
+import SetCategoryButton from "./components/SetCategoryButton";
 
 const DRAWER_WIDTH = 320;
 
@@ -88,6 +89,11 @@ function reducer(state, action) {
         category: state.categories.length,
         categoryInEditMode: true
       }
+    case "SET_TASK_CATEGORY":
+      return {
+        ...state,
+        tasks: state.tasks.map(task => task.id === action.payload.id ? { ...task, category: action.payload.category } : task)
+      }
     case "SELECT_CATEGORY":
       return {
         ...state,
@@ -102,7 +108,7 @@ function reducer(state, action) {
       return {
         ...state,
         categories: state.categories.filter((category, index) => index !== action.payload),
-        tasks: state.tasks.filter(task => task.category !== action.payload),
+        tasks: state.tasks.filter(task => task.category !== state.categories[action.payload]),
         category: state.category === action.payload ? 0 : state.category < action.payload ? state.category : state.category - 1
       }
         default:
@@ -198,6 +204,13 @@ function deleteCategory(index) {
   return {
     type: "DELETE_CATEGORY",
     payload: index
+  }
+}
+
+function setTaskCategory(id, category) {
+  return {
+    type: "SET_TASK_CATEGORY",
+    payload: {id, category}
   }
 }
 
@@ -324,6 +337,10 @@ function deleteCategory(index) {
                     />}
                   buttons={
                     [
+                      <SetCategoryButton
+                        categories={state.categories}
+                        setCategory={(category) => dispatch(setTaskCategory(task.id, category))}
+                      />,
                       <ImportantButton
                         important={task.important}
                         onClick={() => dispatch(toggleImportant(task.id))}
