@@ -33,6 +33,9 @@ const DRAWER_WIDTH = 320;
 const lightTheme = createTheme({
   palette: {
     mode: "light",
+    text: {
+      disabled: "black"
+    }
   },
 });
 
@@ -325,6 +328,7 @@ function deleteCategory(index) {
             <Box sx={{ ml: 2, mt: 2 }}>
               <TextField
                 variant="standard"
+                disabled={state.category < 2}
                 onChange={(e) => dispatch(changeCategoryName(state.category, e.target.value))}
                 value={state.categories[state.category]}
                 InputProps={
@@ -336,6 +340,7 @@ function deleteCategory(index) {
                   }
                 }
                 inputRef={input => state.categoryInEditMode && input && input.focus()}
+                onFocus={e => e.target.select()}
                 onBlur={() => dispatch(toggleCategoryEditMode())}
               ></TextField>
             </Box>
