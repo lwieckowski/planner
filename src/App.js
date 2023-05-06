@@ -18,13 +18,13 @@ import {
 } from "@mui/material";
 import "./App.css";
 import { Box } from "@mui/system";
-import styled from "@emotion/styled";
 import Item from "./components/Item";
 import DeleteButton from "./components/DeleteButton";
 import ImportantButton from "./components/ImportantButton";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { createContext, useReducer } from "react";
+import { useReducer } from "react";
 import SetCategoryButton from "./components/SetCategoryButton";
+import { reducer, initialState, Context } from "./state/reducer";
 
 const DRAWER_WIDTH = 320;
 
@@ -36,105 +36,6 @@ const lightTheme = createTheme({
     },
   },
 });
-
-const initialState = {
-  categories: ["All", "Important"],
-  category: 0,
-  categoryInEditMode: false,
-  newTaskName: "",
-  tasks: [],
-};
-
-const Context = createContext(initialState);
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "CHANGE_NEW_TASK_NAME":
-      return {
-        ...state,
-        newTaskName: action.payload,
-      };
-    case "ADD_TASK":
-      return {
-        ...state,
-        tasks: [...state.tasks, action.payload],
-      };
-    case "DELETE_TASK":
-      return {
-        ...state,
-        tasks: state.tasks.filter((task) => task.id !== action.payload),
-      };
-    case "TOGGLE_CATEGORY_EDIT_MODE":
-      return {
-        ...state,
-        categoryInEditMode: !state.categoryInEditMode,
-      };
-    case "TOGGLE_IMPORTANT":
-      return {
-        ...state,
-        tasks: state.tasks.map((task) =>
-          task.id === action.payload
-            ? { ...task, important: !task.important }
-            : task
-        ),
-      };
-    case "TOGGLE_COMPLETED":
-      return {
-        ...state,
-        tasks: state.tasks.map((task) =>
-          task.id === action.payload
-            ? { ...task, completed: !task.completed }
-            : task
-        ),
-      };
-    case "ADD_CATEGORY":
-      return {
-        ...state,
-        categories: [...state.categories, action.payload],
-        category: state.categories.length,
-        categoryInEditMode: true,
-      };
-    case "SET_TASK_CATEGORY":
-      return {
-        ...state,
-        tasks: state.tasks.map((task) =>
-          task.id === action.payload.id
-            ? { ...task, category: action.payload.category }
-            : task
-        ),
-      };
-    case "SELECT_CATEGORY":
-      return {
-        ...state,
-        category: action.payload,
-      };
-    case "CHANGE_CATEGORY_NAME":
-      return {
-        ...state,
-        categories: state.categories.map((category, index) =>
-          index === action.payload.index ? action.payload.name : category
-        ),
-      };
-    case "DELETE_CATEGORY":
-      return {
-        ...state,
-        categories: state.categories.filter(
-          (category, index) => index !== action.payload
-        ),
-        tasks: state.tasks.filter(
-          (task) => task.category !== state.categories[action.payload]
-        ),
-        category:
-          state.category === action.payload
-            ? 0
-            : state.category < action.payload
-            ? state.category
-            : state.category - 1,
-      };
-    default:
-      return state;
-  }
-}
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -266,11 +167,13 @@ function App() {
             <Box sx={{ overflow: "auto" }}>
               <List>
                 <Item
+                  key={0}
                   text="All"
                   icon={<HomeIcon />}
                   onClick={() => dispatch(selectCategory(0))}
                 ></Item>
                 <Item
+                  key={1}
                   text="Important"
                   icon={<StarBorderIcon />}
                   onClick={() => dispatch(selectCategory(1))}
@@ -279,6 +182,7 @@ function App() {
               <Divider />
               <List>
                 <Item
+                  key={2}
                   text="Add category"
                   icon={<AddIcon />}
                   onClick={() => dispatch(addCategory())}
@@ -287,10 +191,12 @@ function App() {
                   (category, index) =>
                     index >= 2 && (
                       <Item
+                        key={category+index}
                         text={category}
                         icon={<FormatListBulletedIcon />}
                         buttons={[
                           <DeleteButton
+                            key={0}
                             onClick={(e) => {
                               e.stopPropagation();
                               dispatch(deleteCategory(index));
@@ -357,6 +263,7 @@ function App() {
                 })
                 .map((task) => (
                   <Item
+                    key={task.name+task.id}
                     text={task.name}
                     icon={
                       <Checkbox
@@ -366,16 +273,19 @@ function App() {
                     }
                     buttons={[
                       <SetCategoryButton
+                        key={0}
                         categories={state.categories}
                         setCategory={(category) =>
                           dispatch(setTaskCategory(task.id, category))
                         }
                       />,
                       <ImportantButton
+                        key={1}
                         important={task.important}
                         onClick={() => dispatch(toggleImportant(task.id))}
                       />,
                       <DeleteButton
+                        key={2}
                         onClick={() => dispatch(deleteTask(task.id))}
                       />,
                     ]}

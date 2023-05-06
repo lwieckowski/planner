@@ -5,9 +5,10 @@ import {
   ListItemText,
 } from "@mui/material";
 
-export default function Item({ text, icon, buttons, onClick }) {
+export default function Item({ text, icon, buttons, onClick, key }) {
   return (
     <ListItem
+      key={key}
       disablePadding
       sx={{
         "& .visible-on-hover": {
