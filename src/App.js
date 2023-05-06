@@ -175,7 +175,7 @@ function handleNewTaskKeyDown(e) {
   if (e.key === "Enter") {
     e.preventDefault();
     dispatch(changeNewTaskName(""));
-    dispatch(addTask(state.newTaskName, state.selectedCategory));
+    dispatch(addTask(state.newTaskName, state.categories[state.category]));
   }
 }
 
@@ -198,7 +198,7 @@ function addTask(name, category) {
       name,
       important: false,
       completed: false,
-      category
+      category: category
     }
   }
 }
