@@ -1,6 +1,8 @@
 import { createContext } from "react";
 
-export const initialState = {
+const storedState = JSON.parse(localStorage.getItem("state"));
+
+export const initialState = storedState || {
   categories: ["All", "Important", "Completed"],
   category: 0,
   categoryInEditMode: false,

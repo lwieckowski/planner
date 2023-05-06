@@ -1,7 +1,7 @@
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import AddIcon from "@mui/icons-material/Add";
 import HomeIcon from "@mui/icons-material/Home";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import { Divider, List } from "@mui/material";
 import { Box } from "@mui/system";
 import Item from "./Item";

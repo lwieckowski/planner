@@ -24,6 +24,8 @@ const lightTheme = createTheme({
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  localStorage.setItem("state", JSON.stringify(state));
+
   return (
     <Context.Provider value={{ state, dispatch }}>
       <ThemeProvider theme={lightTheme}>
