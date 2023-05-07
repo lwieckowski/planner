@@ -3,7 +3,7 @@ import { createContext } from "react";
 const storedState = JSON.parse(localStorage.getItem("state"));
 
 export const initialState = storedState || {
-  categories: ["All", "Important", "Completed"],
+  categories: ["All", "Important", "Completed", "Active"],
   category: 0,
   categoryInEditMode: false,
   newTaskName: "",
@@ -29,11 +29,6 @@ export function reducer(state, action) {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
-    case "TOGGLE_CATEGORY_EDIT_MODE":
-      return {
-        ...state,
-        categoryInEditMode: !state.categoryInEditMode,
-      };
     case "TOGGLE_IMPORTANT":
       return {
         ...state,
@@ -56,8 +51,6 @@ export function reducer(state, action) {
       return {
         ...state,
         categories: [...state.categories, action.payload],
-        category: state.categories.length,
-        categoryInEditMode: true,
       };
     case "SET_TASK_CATEGORY":
       return {
@@ -72,29 +65,6 @@ export function reducer(state, action) {
       return {
         ...state,
         category: action.payload,
-      };
-    case "CHANGE_CATEGORY_NAME":
-      return {
-        ...state,
-        categories: state.categories.map((category, index) =>
-          index === action.payload.index ? action.payload.name : category
-        ),
-      };
-    case "DELETE_CATEGORY":
-      return {
-        ...state,
-        categories: state.categories.filter(
-          (_, index) => index !== action.payload
-        ),
-        tasks: state.tasks.filter(
-          (task) => task.category !== state.categories[action.payload]
-        ),
-        category:
-          state.category === action.payload
-            ? 0
-            : state.category < action.payload
-            ? state.category
-            : state.category - 1,
       };
     default:
       return state;

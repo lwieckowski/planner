@@ -1,4 +1,4 @@
-import AddIcon from "@mui/icons-material/Add";
+import { Add } from "@mui/icons-material";
 import { Paper, IconButton, InputBase } from "@mui/material";
 import { Context } from "../state/reducer";
 import { useContext } from "react";
@@ -6,7 +6,7 @@ import { useContext } from "react";
 export function NewTaskField() {
   const { state, dispatch } = useContext(Context);
 
-  function addTask(name, category) {
+  function addTask(name) {
     return {
       type: "ADD_TASK",
       payload: {
@@ -14,7 +14,7 @@ export function NewTaskField() {
         name,
         important: false,
         completed: false,
-        category: category,
+        category: null,
       },
     };
   }
@@ -26,11 +26,19 @@ export function NewTaskField() {
     };
   }
 
+  function resetCategory() {
+    return {
+      type: "SELECT_CATEGORY",
+      payload: 0,
+    };
+  }
+
   function handleNewTaskKeyDown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
       dispatch(changeNewTaskName(""));
-      dispatch(addTask(state.newTaskName, state.categories[state.category]));
+      dispatch(addTask(state.newTaskName));
+      dispatch(resetCategory());
     }
   }
 
@@ -50,7 +58,7 @@ export function NewTaskField() {
       }}
     >
       <IconButton disableRipple sx={{ p: "10px 20px" }}>
-        <AddIcon fontSize="medium" />
+        <Add fontSize="medium" />
       </IconButton>
       <InputBase
         sx={{ ml: 1, flex: 1 }}

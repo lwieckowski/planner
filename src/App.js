@@ -1,20 +1,17 @@
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import { CssBaseline } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { useReducer, useEffect } from "react";
 import { reducer, initialState, Context } from "./state/reducer";
-import { NewTaskField } from "./components/NewTaskField";
-import { TaskCategoryTitleField } from "./components/TaskCategoryTitleField";
-import { TaskList } from "./components/TaskList";
-import { SideBar } from "./components/SideBar";
+import { NewTaskField, TaskList, TopBar, CategorySelect } from "./components";
 
 export const DRAWER_WIDTH = 320;
 
 const lightTheme = createTheme({
   palette: {
-    mode: "light",
+    mode: "dark",
     text: {
       disabled: "primary",
     },
@@ -33,9 +30,11 @@ function App() {
       <ThemeProvider theme={lightTheme}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          <SideBar />
           <Box sx={{ width: "100%" }}>
-            <TaskCategoryTitleField />
+            <TopBar />
+            <Box sx={{ mx: "auto", width: 200, mt: 4 }}>
+              <CategorySelect />
+            </Box>
             <Stack spacing={0} margin={2}>
               <NewTaskField />
               <TaskList />
