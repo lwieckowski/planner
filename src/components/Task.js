@@ -15,7 +15,7 @@ import {
 } from ".";
 
 export function Task({ task, key }) {
-  const { state, dispatch } = useContext(Context);
+  const { dispatch } = useContext(Context);
 
   function toggleCompleted(id) {
     return {

@@ -3,7 +3,7 @@ import { Context } from "../state/reducer";
 import { Chip } from "@mui/material";
 
 export function CategoryChip({ task }) {
-  const { state, dispatch } = useContext(Context);
+  const { dispatch } = useContext(Context);
 
   const handleDelete = () => {
     dispatch(deleteTaskCategory(task));

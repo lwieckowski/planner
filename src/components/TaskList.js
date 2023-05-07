@@ -4,7 +4,7 @@ import { Context } from "../state/reducer";
 import { useContext } from "react";
 
 export function TaskList() {
-  const { state, dispatch } = useContext(Context);
+  const { state } = useContext(Context);
 
   return state.tasks
     .filter((task) => {
