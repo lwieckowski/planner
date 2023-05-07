@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import { reducer, initialState, Context } from "./state/reducer";
 import { NewTaskField } from "./components/NewTaskField";
 import { TaskCategoryTitleField } from "./components/TaskCategoryTitleField";
@@ -24,7 +24,9 @@ const lightTheme = createTheme({
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  localStorage.setItem("state", JSON.stringify(state));
+  useEffect(() => {
+    localStorage.setItem("state", JSON.stringify(state));
+  }, [state]);
 
   return (
     <Context.Provider value={{ state, dispatch }}>
