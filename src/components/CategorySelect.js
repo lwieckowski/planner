@@ -10,10 +10,10 @@ import { MOBILE_PX } from "../util/constants";
 
 export function CategorySelect() {
   const { state, dispatch } = useContext(Context);
-  const numFixedCategories = FIXED_CATEGORIES.length;
   const isMobile = useMediaQuery({ query: `(max-width: ${MOBILE_PX}px)` });
-  const lastCategory = isMobile ? numFixedCategories : -1;
-  const selectableCategories = state.categories.slice(0, lastCategory);
+  const selectableCategories = isMobile
+    ? state.categories.slice(0, FIXED_CATEGORIES.length)
+    : state.categories;
 
   const handleChange = (event) => {
     dispatch(selectCategory(event.target.value));
