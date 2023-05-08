@@ -6,16 +6,19 @@ import {
 } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { useContext } from "react";
-import { Context } from "../state/reducer";
+import { Context } from "../util/reducer";
 import {
   DeleteButton,
   ImportantButton,
   CategoryChip,
   AddTaskCategoryField,
 } from ".";
+import { useMediaQuery } from "react-responsive";
+import { MOBILE_PX } from "../util/constants";
 
 export function Task({ task, key }) {
   const { dispatch } = useContext(Context);
+  const isMobile = useMediaQuery({ query: `(max-width: ${MOBILE_PX}px)` });
 
   function toggleCompleted(id) {
     return {
@@ -39,18 +42,7 @@ export function Task({ task, key }) {
   }
 
   return (
-    <ListItem
-      key={key}
-      disablePadding
-      sx={{
-        "& .visible-on-hover": {
-          visibility: "hidden",
-        },
-        "&:hover .visible-on-hover": {
-          visibility: "visible",
-        },
-      }}
-    >
+    <ListItem key={key} disablePadding>
       <ListItemButton disableRipple disableTouchRipple disableFocusRipple>
         <ListItemIcon>
           <Checkbox
@@ -59,11 +51,12 @@ export function Task({ task, key }) {
           />
         </ListItemIcon>
         <ListItemText primary={task.name} />
-        {task.category ? (
-          <CategoryChip task={task} />
-        ) : (
-          <AddTaskCategoryField task={task} />
-        )}
+        {!isMobile &&
+          (task.category ? (
+            <CategoryChip task={task} />
+          ) : (
+            <AddTaskCategoryField task={task} />
+          ))}
         <ImportantButton
           important={task.important}
           onClick={() => dispatch(toggleImportant(task.id))}

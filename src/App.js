@@ -4,10 +4,9 @@ import { CssBaseline } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { useReducer, useEffect } from "react";
-import { reducer, initialState, Context } from "./state/reducer";
+import { reducer, Context } from "./util/reducer";
+import { initialState } from "./util/initialState";
 import { NewTaskField, TaskList, TopBar, CategorySelect } from "./components";
-
-export const DRAWER_WIDTH = 320;
 
 const lightTheme = createTheme({
   palette: {

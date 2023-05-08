@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Context } from "../state/reducer";
+import { Context } from "../util/reducer";
 import { Chip } from "@mui/material";
 
 export function CategoryChip({ task }) {
@@ -21,7 +21,7 @@ export function CategoryChip({ task }) {
 
   return (
     <Chip
-      className="visible-on-hover"
+      color="primary"
       label={task.category}
       onDelete={handleDelete}
       sx={{ mr: 2 }}

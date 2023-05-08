@@ -2,11 +2,18 @@ import { InputLabel } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import { FormControl } from "@mui/material";
 import { Select } from "@mui/material";
-import { Context } from "../state/reducer";
+import { Context } from "../util/reducer";
 import { useContext } from "react";
+import { FIXED_CATEGORIES } from "../util/initialState";
+import { useMediaQuery } from "react-responsive";
+import { MOBILE_PX } from "../util/constants";
 
 export function CategorySelect() {
   const { state, dispatch } = useContext(Context);
+  const numFixedCategories = FIXED_CATEGORIES.length;
+  const isMobile = useMediaQuery({ query: `(max-width: ${MOBILE_PX}px)` });
+  const lastCategory = isMobile ? numFixedCategories : -1;
+  const selectableCategories = state.categories.slice(0, lastCategory);
 
   const handleChange = (event) => {
     dispatch(selectCategory(event.target.value));
@@ -29,7 +36,7 @@ export function CategorySelect() {
         label="Category"
         onChange={handleChange}
       >
-        {state.categories.map((category, index) => (
+        {selectableCategories.map((category, index) => (
           <MenuItem key={index} value={index}>
             {category}
           </MenuItem>
