@@ -1,6 +1,6 @@
 import { Add } from "@mui/icons-material";
 import { Paper, IconButton, InputBase } from "@mui/material";
-import { Context } from "../util/reducer";
+import { Context } from "../util/context";
 import { useContext } from "react";
 
 export function NewTaskField() {

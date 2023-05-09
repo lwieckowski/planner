@@ -1,7 +1,7 @@
 import { createContext } from "react";
-import { initialState } from "./initialState";
+import { INITIAL_STATE } from "./constants";
 
-export const Context = createContext(initialState);
+export const Context = createContext(INITIAL_STATE);
 
 export function reducer(state, action) {
   switch (action.type) {
@@ -62,11 +62,21 @@ export function reducer(state, action) {
         ...state,
         theme: action.payload,
       };
-    case "TOGGLE_AUTH":
+    case "LOGIN":
       return {
         ...state,
-        auth: !state.auth,
+        auth: true,
       };
+    case "LOGOUT":
+      return {
+        ...state,
+        auth: false,
+      };
+    case "LOAD_STORED_STATE":
+      const storedState = JSON.parse(localStorage.getItem("state"));
+      return storedState ? storedState : INITIAL_STATE;
+    case "RESET_STATE":
+      return INITIAL_STATE;
     default:
       return state;
   }

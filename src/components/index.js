@@ -8,3 +8,4 @@ export * from "./TopBar";
 export * from "./CategorySelect";
 export * from "./NewTaskField";
 export * from "./AccountAvatar";
+export * from "./LoginButton";

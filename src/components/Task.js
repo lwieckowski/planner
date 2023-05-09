@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { useContext } from "react";
-import { Context } from "../util/reducer";
+import { Context } from "../util/context";
 import {
   DeleteButton,
   ImportantButton,

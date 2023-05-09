@@ -4,8 +4,8 @@ import { CssBaseline } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { useReducer, useEffect } from "react";
-import { reducer, Context } from "./util/reducer";
-import { initialState } from "./util/initialState";
+import { reducer, Context } from "./util/context";
+import { INITIAL_STATE } from "./util/constants";
 import { NewTaskField, TaskList, TopBar, CategorySelect } from "./components";
 
 const lightTheme = createTheme({
@@ -31,11 +31,13 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const theme = state.theme == "light" ? lightTheme : darkTheme;
 
   useEffect(() => {
-    localStorage.setItem("state", JSON.stringify(state));
+    if (state.auth) {
+      localStorage.setItem("state", JSON.stringify(state));
+    }
   }, [state]);
 
   return (

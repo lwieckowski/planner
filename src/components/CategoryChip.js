@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Context } from "../util/reducer";
+import { Context } from "../util/context";
 import { Chip } from "@mui/material";
 
 export function CategoryChip({ task }) {

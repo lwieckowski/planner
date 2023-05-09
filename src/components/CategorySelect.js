@@ -2,11 +2,10 @@ import { InputLabel } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import { FormControl } from "@mui/material";
 import { Select } from "@mui/material";
-import { Context } from "../util/reducer";
+import { Context } from "../util/context";
 import { useContext } from "react";
-import { FIXED_CATEGORIES } from "../util/initialState";
+import { FIXED_CATEGORIES, MOBILE_PX } from "../util/constants";
 import { useMediaQuery } from "react-responsive";
-import { MOBILE_PX } from "../util/constants";
 
 export function CategorySelect() {
   const { state, dispatch } = useContext(Context);

@@ -8,19 +8,22 @@ import {
   Divider,
 } from "@mui/material";
 import { DarkMode, LightMode, Logout } from "@mui/icons-material";
-import { Context } from "../util/reducer";
+import { Context } from "../util/context";
 import { useContext } from "react";
 
 export function AccountAvatar() {
   const { dispatch } = useContext(Context);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -81,7 +84,12 @@ export function AccountAvatar() {
           <DarkMode sx={{ mr: 1 }} /> Dark mode
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => dispatch({ type: "TOGGLE_AUTH" })}>
+        <MenuItem
+          onClick={() => {
+            dispatch({ type: "RESET_STATE" });
+            dispatch({ type: "LOGOUT" });
+          }}
+        >
           <Logout sx={{ mr: 1 }} /> Logout
         </MenuItem>
       </Menu>

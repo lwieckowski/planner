@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { Context } from "../util/reducer";
-import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material";
-import { AccountAvatar } from ".";
+import { Context } from "../util/context";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AccountAvatar, LoginButton} from ".";
 import { ListAlt } from "@mui/icons-material";
 
 export function TopBar() {
@@ -15,16 +15,7 @@ export function TopBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Task tracker
           </Typography>
-          {state.auth ? (
-            <AccountAvatar />
-          ) : (
-            <Button
-              color="inherit"
-              onClick={() => dispatch({ type: "TOGGLE_AUTH" })}
-            >
-              Login
-            </Button>
-          )}
+          {state.auth ? <AccountAvatar /> : <LoginButton />}
         </Toolbar>
       </AppBar>
     </Box>
