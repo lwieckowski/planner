@@ -13,7 +13,6 @@ const lightTheme = createTheme({
     mode: "light",
     primary: {
       main: "#3f51b5",
-      darker: "#303f9f",
     },
     text: {
       disabled: "primary",
@@ -24,6 +23,9 @@ const lightTheme = createTheme({
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+    primary: {
+      main: "#3f51b5",
+    },
     text: {
       disabled: "primary",
     },
