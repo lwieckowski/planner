@@ -13,12 +13,10 @@ import {
   CategoryChip,
   AddTaskCategoryField,
 } from ".";
-import { useMediaQuery } from "react-responsive";
-import { checkIfMobile } from "../util/helpers";
+import { isMobile } from 'react-device-detect';
 
 export function Task({ task, key }) {
   const { dispatch } = useContext(Context);
-  const isMobile = checkIfMobile(useMediaQuery);
 
   function toggleCompleted(id) {
     return {
