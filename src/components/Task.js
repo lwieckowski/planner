@@ -14,11 +14,11 @@ import {
   AddTaskCategoryField,
 } from ".";
 import { useMediaQuery } from "react-responsive";
-import { MOBILE_PX } from "../util/constants";
+import { checkIfMobile } from "../util/helpers";
 
 export function Task({ task, key }) {
   const { dispatch } = useContext(Context);
-  const isMobile = useMediaQuery({ query: `(max-width: ${MOBILE_PX}px)` });
+  const isMobile = checkIfMobile(useMediaQuery);
 
   function toggleCompleted(id) {
     return {
