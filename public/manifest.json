@@ -1,6 +1,6 @@
 {
-  "short_name": "Planner",
-  "name": "Personal Planner App",
+  "short_name": "Task tracker",
+  "name": "Task tracking app",
   "icons": [
     {
       "src": "favicon.svg",

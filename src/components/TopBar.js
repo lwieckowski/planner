@@ -13,7 +13,7 @@ export function TopBar() {
         <Toolbar>
           <ListAlt sx={{ mr: 1 }}></ListAlt>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Planner
+            Task tracker
           </Typography>
           {state.auth ? (
             <AccountAvatar />
