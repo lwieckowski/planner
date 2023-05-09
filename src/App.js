@@ -34,7 +34,7 @@ const darkTheme = createTheme({
 
 function App() {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const theme = state.theme == "light" ? lightTheme : darkTheme;
+  const theme = state.theme === "light" ? lightTheme : darkTheme;
 
   useEffect(() => {
     if (state.auth) {
