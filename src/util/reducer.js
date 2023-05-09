@@ -57,6 +57,16 @@ export function reducer(state, action) {
         ...state,
         category: action.payload,
       };
+    case "SET_THEME":
+      return {
+        ...state,
+        theme: action.payload,
+      };
+    case "TOGGLE_AUTH":
+      return {
+        ...state,
+        auth: !state.auth,
+      };
     default:
       return state;
   }

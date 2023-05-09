@@ -10,6 +10,19 @@ import { NewTaskField, TaskList, TopBar, CategorySelect } from "./components";
 
 const lightTheme = createTheme({
   palette: {
+    mode: "light",
+    primary: {
+      main: "#3f51b5",
+      darker: "#303f9f",
+    },
+    text: {
+      disabled: "primary",
+    },
+  },
+});
+
+const darkTheme = createTheme({
+  palette: {
     mode: "dark",
     text: {
       disabled: "primary",
@@ -19,6 +32,7 @@ const lightTheme = createTheme({
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const theme = state.theme == "light" ? lightTheme : darkTheme;
 
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
@@ -26,7 +40,7 @@ function App() {
 
   return (
     <Context.Provider value={{ state, dispatch }}>
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={theme}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
           <Box sx={{ width: "100%" }}>

@@ -4,7 +4,7 @@ export * from "./CategoryChip";
 export * from "./AddTaskCategoryField";
 export * from "./Task";
 export * from "./TaskList";
-export * from "./AppBar";
+export * from "./TopBar";
 export * from "./CategorySelect";
 export * from "./NewTaskField";
 export * from "./AccountAvatar";
