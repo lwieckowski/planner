@@ -5,7 +5,7 @@ import { AccountAvatar, LoginButton} from ".";
 import { ListAlt } from "@mui/icons-material";
 
 export function TopBar() {
-  const { state, dispatch } = useContext(Context);
+  const { state } = useContext(Context);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
